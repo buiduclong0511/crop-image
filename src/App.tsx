@@ -51,7 +51,11 @@ export default function App() {
     }
 
     const file = e.target.files[0]
-    console.log("🚀 ~ file:", JSON.stringify(file))
+    alert(`
+    ${file.name} \n
+    ${file.type} \n
+    ${file.size} \n
+    `)
     setImgSrc(URL.createObjectURL(file))
   }
 
