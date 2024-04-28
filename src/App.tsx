@@ -46,14 +46,13 @@ export default function App() {
   const [aspect, setAspect] = useState<number | undefined>(16 / 9)
 
   function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
-    if (e.target.files && e.target.files.length > 0) {
-      setCrop(undefined) // Makes crop preview update between images.
-      const reader = new FileReader()
-      reader.addEventListener('load', () =>
-        setImgSrc(reader.result?.toString() || ''),
-      )
-      reader.readAsDataURL(e.target.files[0])
+    if (!e.target.files) {
+      return
     }
+
+    const file = e.target.files[0]
+    console.log("🚀 ~ file:", file)
+    setImgSrc(URL.createObjectURL(file))
   }
 
   function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
@@ -154,7 +153,7 @@ export default function App() {
   return (
     <div className="App">
       <div className="Crop-Controls">
-        <input type="file" accept="image/*" onChange={onSelectFile} />
+        <input type="file" onChange={onSelectFile} />
         <div>
           <label htmlFor="scale-input">Scale: </label>
           <input
